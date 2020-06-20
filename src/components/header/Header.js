@@ -2,11 +2,12 @@ import React from 'react';
 // import { NavLink } from 'react-router-dom';
 
 import './header.scss';
-import logo from '../../logo.png';
+// import logo from '../../logo.png';
 
 const Header = () => (
-  <header>
-    <img src={logo} width="100" alt="logo" />
+  <header className="header">
+    <span className="headline">Гоп-блог</span>
+    {/* <img src={logo} width="100" alt="logo" /> */}
     {/* <nav>
       <ul className="nav">
         <li>

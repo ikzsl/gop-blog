@@ -1,3 +1,23 @@
+.header {
+  background: url('../../img/gop5-header.jpg'), rgba(255, 255, 255, 0.8);
+  background-repeat: no-repeat;
+  background-clip: content-box;
+  background-position: center;
+  background-blend-mode: lighten;
+  height: 300px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headline {
+  font-size: 80px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 2px white;
+  font-weight: 700;
+}
+
 .nav {
   display: flex;
   justify-content: center;
