@@ -24,8 +24,16 @@ const loading = handleActions(
   false,
 );
 
+const articlesData = handleActions(
+  {
+    [actions.loadArticlesList]: (state, action) => action.payload,
+  },
+  {},
+);
+
 export default combineReducers({
   currentUser,
   errors,
   loading,
+  articlesData,
 });

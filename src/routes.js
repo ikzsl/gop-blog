@@ -6,4 +6,5 @@ export default {
   userPostUrl: () => 'users',
   userLoginUrl: () => 'users/login',
   getProfileUrl: () => 'user',
+  getArticlesListUrl: () => 'articles',
 };

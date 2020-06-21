@@ -5,6 +5,8 @@ import { Button } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { logoutUser } from '../../actions/actions';
 
+import Articles from '../../components/articles/Articles';
+
 import './mainPage.scss';
 
 const Main = () => {
@@ -22,6 +24,7 @@ const Main = () => {
   return (
     <div className="form-container">
       <Header />
+      <Articles />
       <Button
         disabled={false}
         size="large"

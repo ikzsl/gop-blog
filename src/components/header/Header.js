@@ -1,5 +1,5 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './header.scss';
 // import logo from '../../logo.png';
@@ -8,7 +8,7 @@ const Header = () => (
   <header className="header">
     <span className="headline">Гоп-блог</span>
     {/* <img src={logo} width="100" alt="logo" /> */}
-    {/* <nav>
+    <nav>
       <ul className="nav">
         <li>
           <NavLink exact to="/" className="link">
@@ -26,7 +26,7 @@ const Header = () => (
           </NavLink>
         </li>
       </ul>
-    </nav> */}
+    </nav>
   </header>
 );
 export default Header;

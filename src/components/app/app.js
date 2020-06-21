@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from 'react-loader';
-import { getProfileFetch } from '../../actions/actions';
+import { getProfileFetch, getArticlesListFetch } from '../../actions/actions';
 import Header from '../header/Header';
 
 import SignupForm from '../../pages/signupForm/SignupForm';
@@ -10,7 +10,7 @@ import LoginForm from '../../pages/loginForm/LoginForm';
 import MainPage from '../../pages/mainPage/mainPage';
 import PageNotFound from '../../pages/pageNotFound/pageNotFound';
 
-import PrivateRoute from '../privateRoute/PrivateRoute';
+// import PrivateRoute from '../privateRoute/PrivateRoute';
 import PublicRoute from '../publicRoute/PublicRoute';
 
 import './app.scss';
@@ -22,14 +22,22 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getProfileFetch());
+    // eslint-disable-next-line
   }, [currentUser.id]);
+
+  useEffect(() => {
+    dispatch(getArticlesListFetch());
+    // eslint-disable-next-line
+  }, []);
+
+  const isLogged = !!currentUser.id;
 
   return (
     <HashRouter>
-      <Header />
+      {isLogged ? null : <Header />}
       <Loader loaded={!loading} />
       <Switch>
-        <PrivateRoute exact path="/" component={MainPage} />
+        <Route exact path="/" component={MainPage} />
         <PublicRoute exact path="/login" component={LoginForm} />
         <PublicRoute exact path="/signup" component={SignupForm} />
         <Route path="*" component={PageNotFound} />

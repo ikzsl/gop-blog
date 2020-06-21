@@ -6,6 +6,7 @@ export const changeFetchStatus = createAction('CHANGE_FETCH_STATUS');
 export const changeLoadingStatus = createAction('CHANGE_LOADING_STATUS');
 export const loginUser = createAction('LOGIN_USER');
 export const logoutUser = createAction('LOGOUT_USER');
+export const loadArticlesList = createAction('LOAD_ARTICLES_LIST');
 
 const userFetch = async (user, dispatch, url) => {
   const response = await axios.post(url, { user });
@@ -13,6 +14,20 @@ const userFetch = async (user, dispatch, url) => {
   localStorage.setItem('token', data.user.token);
   dispatch(changeFetchStatus(null));
   dispatch(loginUser(data.user));
+};
+
+// --------------------getArticlesFetch--------------------
+export const getArticlesListFetch = () => async (dispatch) => {
+  dispatch(changeLoadingStatus(true));
+  try {
+    const url = routes.getArticlesListUrl();
+    const response = await axios.get(url);
+    const { data } = response;
+    dispatch(loadArticlesList(data));
+    dispatch(changeLoadingStatus(false));
+  } catch (err) {
+    dispatch(changeLoadingStatus(false));
+  }
 };
 
 // ------------------ userPostFetch ----------------------
