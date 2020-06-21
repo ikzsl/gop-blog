@@ -20,22 +20,25 @@ const Main = () => {
   };
 
   const { username } = currentUser;
+  const isLogged = !!currentUser.id;
   const Header = () => (username ? <h1>{`Здравствуй ${username}`}</h1> : null);
   return (
     <div className="form-container">
       <Header />
+      {isLogged ? (
+        <Button
+          disabled={false}
+          size="large"
+          className="button"
+          icon={<LogoutOutlined />}
+          shape="round"
+          onClick={handleExit}
+          type="danger"
+        >
+          Выйти
+        </Button>
+      ) : null}
       <Articles />
-      <Button
-        disabled={false}
-        size="large"
-        className="button"
-        icon={<LogoutOutlined />}
-        shape="round"
-        onClick={handleExit}
-        type="danger"
-      >
-        Выйти
-      </Button>
     </div>
   );
 };

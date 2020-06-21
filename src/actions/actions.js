@@ -17,10 +17,10 @@ const userFetch = async (user, dispatch, url) => {
 };
 
 // --------------------getArticlesFetch--------------------
-export const getArticlesListFetch = () => async (dispatch) => {
+export const getArticlesListFetch = (limit, offset) => async (dispatch) => {
   dispatch(changeLoadingStatus(true));
   try {
-    const url = routes.getArticlesListUrl();
+    const url = routes.getArticlesListUrl(limit, offset);
     const response = await axios.get(url);
     const { data } = response;
     dispatch(loadArticlesList(data));

@@ -30,11 +30,11 @@ const App = () => {
     // eslint-disable-next-line
   }, []);
 
-  const isLogged = !!currentUser.id;
+  // const isLogged = !!currentUser.id;
 
   return (
     <HashRouter>
-      {isLogged ? null : <Header />}
+      <Header />
       <Loader loaded={!loading} />
       <Switch>
         <Route exact path="/" component={MainPage} />
