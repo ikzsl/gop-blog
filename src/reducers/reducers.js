@@ -31,9 +31,17 @@ const articlesData = handleActions(
   {},
 );
 
+const currentArticle = handleActions(
+  {
+    [actions.loadCurrentArticle]: (state, action) => action.payload,
+  },
+  {},
+);
+
 export default combineReducers({
   currentUser,
   errors,
   loading,
   articlesData,
+  currentArticle,
 });

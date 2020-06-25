@@ -7,7 +7,8 @@ import Header from '../header/Header';
 
 import SignupForm from '../../pages/signupForm/SignupForm';
 import LoginForm from '../../pages/loginForm/LoginForm';
-import MainPage from '../../pages/mainPage/mainPage';
+import Articles from '../articles/Articles';
+import Article from '../article/Article';
 import PageNotFound from '../../pages/pageNotFound/pageNotFound';
 
 // import PrivateRoute from '../privateRoute/PrivateRoute';
@@ -37,7 +38,8 @@ const App = () => {
       <Header />
       <Loader loaded={!loading} />
       <Switch>
-        <Route exact path="/" component={MainPage} />
+        <Route exact path="/" component={Articles} />
+        <Route exact path="/articles/:slug" component={Article} />
         <PublicRoute exact path="/login" component={LoginForm} />
         <PublicRoute exact path="/signup" component={SignupForm} />
         <Route path="*" component={PageNotFound} />

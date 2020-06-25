@@ -1,32 +1,65 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { Button } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
+import { logoutUser } from '../../actions/actions';
 
 import './header.scss';
 // import logo from '../../logo.png';
 
-const Header = () => (
-  <header className="header">
-    <span className="headline">Гоп-блог</span>
-    {/* <img src={logo} width="100" alt="logo" /> */}
+const Header = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUser);
+
+  const handleExit = (evt) => {
+    evt.preventDefault();
+    localStorage.removeItem('token');
+    dispatch(logoutUser());
+  };
+
+  const isLogged = !!currentUser.id;
+
+  const navbar = (
     <nav>
       <ul className="nav">
         <li>
-          <NavLink exact to="/" className="link">
-            /
-          </NavLink>
-        </li>
-        <li>
           <NavLink to="/login" className="link">
-            /login
+            Sign In
           </NavLink>
         </li>
         <li>
           <NavLink to="/signup" className="link">
-            /signup
+            Sign Up
           </NavLink>
         </li>
       </ul>
     </nav>
-  </header>
-);
+  );
+
+  const navbarLogged = (
+    <nav>
+      <ul className="nav">
+        <li>
+          <Button size="large">Create Article</Button>
+        </li>
+
+        <li className="link">{currentUser.username}</li>
+        <li className="link">
+          <Button disabled={false} size="large" icon={<LogoutOutlined />} onClick={handleExit}>
+            Выйти
+          </Button>
+        </li>
+      </ul>
+    </nav>
+  );
+
+  return (
+    <header className="header">
+      <span className="headline">Гоп-блог</span>
+      {/* <img src={logo} width="100" alt="logo" /> */}
+      {isLogged ? navbarLogged : navbar}
+    </header>
+  );
+};
 export default Header;
