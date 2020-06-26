@@ -23,8 +23,8 @@ export const getCurrentArticleFetch = (slug) => async (dispatch) => {
   try {
     const url = routes.getArticleUrl(slug);
     const response = await axios.get(url);
-    const { data } = response;
-    dispatch(loadCurrentArticle(data));
+    const { article } = response.data;
+    dispatch(loadCurrentArticle(article));
     dispatch(changeLoadingStatus(false));
   } catch (err) {
     dispatch(changeLoadingStatus(false));

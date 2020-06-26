@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from 'antd';
 import { formatDistance } from 'date-fns';
-import { getArticlesListFetch, getCurrentArticleFetch } from '../../actions/actions';
+import { getArticlesListFetch } from '../../actions/actions';
 
-import './articles.scss';
+// import './articles.scss';
+import { ArticlesList, Article } from './style';
 
 export default () => {
   const dispatch = useDispatch();
@@ -15,23 +16,16 @@ export default () => {
     dispatch(getArticlesListFetch(pageSize, (page - 1) * pageSize));
   };
 
-  const handleArticle = (slugId) => {
-    dispatch(getCurrentArticleFetch(slugId));
-  };
-
   const articlesList = (
-    <ul className="articlesList">
+    <ArticlesList className="articlesList">
       {articles
         ? articles.map(({
           slug, title, tagList, author, createdAt, favoritesCount,
         }) => (
-          <li key={slug} className="article">
+          <Article key={slug} className="article">
             <NavLink
               to={`/articles/${slug}`}
-              onClick={() => handleArticle(slug)}
-              onKeyPress={() => {
-                // console.log('click ondddqq article');
-              }}
+                // }}
               className="navLink"
             >
               <h2>{title}</h2>
@@ -59,10 +53,10 @@ export default () => {
             likes:
             {' '}
             {favoritesCount}
-          </li>
+          </Article>
         ))
         : null}
-    </ul>
+    </ArticlesList>
   );
 
   return (

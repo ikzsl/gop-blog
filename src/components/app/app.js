@@ -39,7 +39,7 @@ const App = () => {
       <Loader loaded={!loading} />
       <Switch>
         <Route exact path="/" component={Articles} />
-        <Route exact path="/articles/:slug" component={Article} />
+        <Route path="/articles/:slug" component={Article} />
         <PublicRoute exact path="/login" component={LoginForm} />
         <PublicRoute exact path="/signup" component={SignupForm} />
         <Route path="*" component={PageNotFound} />

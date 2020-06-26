@@ -56,7 +56,10 @@ const Header = () => {
 
   return (
     <header className="header">
-      <span className="headline">Гоп-блог</span>
+      <NavLink to="/" className="headline">
+        Гоп-блог
+      </NavLink>
+
       {/* <img src={logo} width="100" alt="logo" /> */}
       {isLogged ? navbarLogged : navbar}
     </header>
