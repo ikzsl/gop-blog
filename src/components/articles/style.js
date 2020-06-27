@@ -7,9 +7,27 @@ export const ArticlesList = styled.ul`
 `;
 
 export const Article = styled.li`
-  background-color: rgb(240, 239, 239);
   margin: 10px;
-  padding: 10px;
+  padding: 20px;
   text-decoration: none;
   list-style: none;
+  background-color: white;
+`;
+
+export const TagList = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+export const Tag = styled.span`
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+`;
+
+export const Container = styled.div`
+  text-align: center;
+  padding: 5px;
 `;

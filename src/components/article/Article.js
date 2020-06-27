@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import './article.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getCurrentArticleFetch } from '../../actions/actions';
+import {
+  Container, Description, Title, Body, Tag,
+} from './style';
 
 const Article = () => {
   const dispatch = useDispatch();
@@ -26,14 +28,12 @@ const Article = () => {
   } = useSelector((state) => state.currentArticle);
 
   return (
-    <div className="form-container">
-      {title || null}
-      <br />
-      {description}
-      <br />
-      {tagList}
-      <br />
-      {body}
+    <Container>
+      <Title>{title}</Title>
+      <Description>{description}</Description>
+      <Tag>{tagList}</Tag>
+      <Body>{body}</Body>
+
       <br />
       {createdAt}
       <br />
@@ -44,7 +44,7 @@ const Article = () => {
       {favorited ? <p>liked</p> : <p>notLiked</p>}
       <br />
       {favoritesCount}
-    </div>
+    </Container>
   );
 };
 

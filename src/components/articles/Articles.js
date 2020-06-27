@@ -5,15 +5,18 @@ import { Pagination } from 'antd';
 import { formatDistance } from 'date-fns';
 import { getArticlesListFetch } from '../../actions/actions';
 
-// import './articles.scss';
-import { ArticlesList, Article } from './style';
+import {
+  ArticlesList, Article, TagList, Tag, Container,
+} from './style';
+
+import 'antd/dist/antd.css';
 
 export default () => {
   const dispatch = useDispatch();
-  const { articles, articlesCount } = useSelector((state) => state.articlesData);
+  const { articles, articlesCount = 1 } = useSelector((state) => state.articlesData);
 
   const handleChange = (page, pageSize) => {
-    dispatch(getArticlesListFetch(pageSize, (page - 1) * pageSize));
+    dispatch(getArticlesListFetch(pageSize, page * pageSize - pageSize));
   };
 
   const articlesList = (
@@ -25,17 +28,15 @@ export default () => {
           <Article key={slug} className="article">
             <NavLink
               to={`/articles/${slug}`}
-                // }}
-              className="navLink"
             >
               <h2>{title}</h2>
-              tags:
-              {' '}
-              {tagList.map((tag) => (
-                <span key={tag} className="tag">
-                  {tag}
-                </span>
-              ))}
+              <TagList>
+                {tagList.map((tag) => (
+                  <Tag key={tag} className="tag">
+                    {tag}
+                  </Tag>
+                ))}
+              </TagList>
               <br />
               author:
               {' '}
@@ -61,8 +62,15 @@ export default () => {
 
   return (
     <>
-      <Pagination total={articlesCount} onChange={handleChange} showSizeChanger={false} />
       {articlesList}
+      <Container>
+        <Pagination
+          total={articlesCount}
+          onChange={handleChange}
+          showSizeChanger={false}
+          defaultCurrent={1}
+        />
+      </Container>
     </>
   );
 };
