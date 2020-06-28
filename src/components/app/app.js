@@ -36,7 +36,7 @@ const App = () => {
   return (
     <HashRouter>
       <Header />
-      <Loader loaded={!loading} />
+      <Loader loaded={!loading} className="loader" />
       <Switch>
         <Route exact path="/" component={Articles} />
         <Route path="/articles/:slug" component={Article} />

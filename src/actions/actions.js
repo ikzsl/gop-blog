@@ -8,6 +8,7 @@ export const loginUser = createAction('LOGIN_USER');
 export const logoutUser = createAction('LOGOUT_USER');
 export const loadArticlesList = createAction('LOAD_ARTICLES_LIST');
 export const loadCurrentArticle = createAction('LOAD_CURRENT_ARTICLE');
+export const favoriteArticle = createAction('FAVORITE_ARTICLE');
 
 const userFetch = async (user, dispatch, url) => {
   const response = await axios.post(url, { user });
@@ -15,6 +16,19 @@ const userFetch = async (user, dispatch, url) => {
   localStorage.setItem('token', data.user.token);
   dispatch(changeFetchStatus(null));
   dispatch(loginUser(data.user));
+};
+
+// --------------------setFavoriteArticle--------------------
+export const setFavoriteArticle = (slug, favorited) => async (dispatch) => {
+  dispatch(changeLoadingStatus(true));
+  try {
+    const url = routes.setFavoriteArticleURL(slug, favorited);
+    await (favorited ? axios.delete(url) : axios.post(url));
+    dispatch(favoriteArticle({ slug, favorited }));
+    dispatch(changeLoadingStatus(false));
+  } catch (err) {
+    dispatch(changeLoadingStatus(false));
+  }
 };
 
 // --------------------getCurrentArticleFetch--------------------
