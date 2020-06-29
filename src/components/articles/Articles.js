@@ -7,7 +7,16 @@ import { formatDistance } from 'date-fns';
 import { getArticlesListFetch, setFavoriteArticle } from '../../actions/actions';
 
 import {
-  ArticlesList, Article, TagList, Tag, Container,
+  ArticlesList,
+  Article,
+  TagList,
+  Tag,
+  Container,
+  FavoriteButton,
+  Title,
+  ArticleAuthor,
+  ArticleAuthorInfo,
+  AuthorImage,
 } from './style';
 
 import 'antd/dist/antd.css';
@@ -15,6 +24,8 @@ import 'antd/dist/antd.css';
 export default () => {
   const dispatch = useDispatch();
   const { articles, articlesCount = 1 } = useSelector((state) => state.articlesData);
+  const { id } = useSelector((state) => state.currentUser);
+  const isLogged = !!id;
 
   const handleChange = (page, pageSize) => {
     dispatch(getArticlesListFetch(pageSize, page * pageSize - pageSize));
@@ -32,8 +43,19 @@ export default () => {
           slug, title, tagList, author, createdAt, favoritesCount, favorited,
         }) => (
           <Article key={slug} className="article">
-            <NavLink to={`/articles/${slug}`}>
-              <h2>{title}</h2>
+            <div className="articleInfo">
+              <NavLink to={`/articles/${slug}`}>
+                <Title>{title}</Title>
+              </NavLink>
+              {isLogged ? (
+                <FavoriteButton type="button" onClick={() => handleLike(slug, favorited)}>
+                  {favorited ? <HeartFilled /> : <HeartOutlined />}
+                </FavoriteButton>
+              ) : (
+                <HeartOutlined />
+              )}
+              {' '}
+              {favoritesCount}
               <TagList>
                 {tagList.map((tag) => (
                   <Tag key={tag} className="tag">
@@ -41,25 +63,18 @@ export default () => {
                   </Tag>
                 ))}
               </TagList>
-              <br />
-              author:
-              {' '}
-              {author.username}
-              <br />
-              created:
-              {' '}
-              {formatDistance(new Date(createdAt), Date.now(), {
-                includeSeconds: true,
-              })}
-              {' '}
-              ago
-            </NavLink>
-            <br />
-            <button type="button" onClick={() => handleLike(slug, favorited)}>
-              {favorited ? <HeartFilled /> : <HeartOutlined />}
-            </button>
-            {' '}
-            {favoritesCount}
+            </div>
+            <ArticleAuthor className="articleAuthor">
+              <ArticleAuthorInfo>
+                {author.username}
+                <br />
+                {formatDistance(new Date(createdAt), Date.now(), {
+                  includeSeconds: true,
+                })}
+              </ArticleAuthorInfo>
+
+              <AuthorImage src={author.image} alt="" width="46" height="46" />
+            </ArticleAuthor>
           </Article>
         ))
         : null}

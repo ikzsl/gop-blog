@@ -3,15 +3,27 @@ import styled from 'styled-components';
 export const ArticlesList = styled.ul`
   padding: 0;
   margin: 0 auto;
-  width: 70%;
+  max-width: 900px;
 `;
 
 export const Article = styled.li`
-  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
   padding: 20px;
   text-decoration: none;
   list-style: none;
   background-color: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  min-height: 140px;
+`;
+
+export const Title = styled.h2`
+  margin-right: 10px;
+  display: inline-block;
+  color: #1890ff;
+  text-align: left;
 `;
 
 export const TagList = styled.div`
@@ -21,7 +33,7 @@ export const TagList = styled.div`
 `;
 
 export const Tag = styled.span`
-  padding: 5px;
+  padding: 0 10px;
   margin-right: 10px;
   border: 1px solid gray;
   border-radius: 5px;
@@ -30,4 +42,27 @@ export const Tag = styled.span`
 export const Container = styled.div`
   text-align: center;
   padding: 5px;
+`;
+
+export const FavoriteButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  :focus {
+    outline: none;
+    /* outline-color: blue; */
+  }
+`;
+
+export const ArticleAuthor = styled.div`
+  display: flex;
+`;
+
+export const ArticleAuthorInfo = styled.div`
+  margin-right: 10px;
+`;
+
+export const AuthorImage = styled.img`
+  border-radius: 50%;
 `;
