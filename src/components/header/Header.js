@@ -41,7 +41,9 @@ const Header = () => {
     <nav>
       <ul className="nav">
         <li>
-          <Button size="large">Create Article</Button>
+          <NavLink to="/add" size="large">
+            Create Article
+          </NavLink>
         </li>
 
         <li className="link">{currentUser.username}</li>

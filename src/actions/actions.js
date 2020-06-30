@@ -9,6 +9,7 @@ export const logoutUser = createAction('LOGOUT_USER');
 export const loadArticlesList = createAction('LOAD_ARTICLES_LIST');
 export const loadCurrentArticle = createAction('LOAD_CURRENT_ARTICLE');
 export const favoriteArticle = createAction('FAVORITE_ARTICLE');
+export const setCurrentPage = createAction('SET_CURRENT_PAGE');
 
 const userFetch = async (user, dispatch, url) => {
   const response = await axios.post(url, { user });
@@ -16,6 +17,23 @@ const userFetch = async (user, dispatch, url) => {
   localStorage.setItem('token', data.user.token);
   dispatch(changeFetchStatus(null));
   dispatch(loginUser(data.user));
+};
+
+// ------------------ articlePostFetch ----------------------
+export const articlePostFetch = (article, setFieldError) => async (dispatch) => {
+  dispatch(changeLoadingStatus(true));
+  try {
+    const url = routes.articlePostUrl();
+    await axios.post(url, { article });
+    dispatch(changeLoadingStatus(false));
+  } catch ({ response }) {
+    const { errors } = response.data;
+    dispatch(changeFetchStatus(errors));
+    dispatch(changeLoadingStatus(false));
+    setFieldError('title', errors.title);
+    setFieldError('description', errors.description);
+    setFieldError('body', errors.body);
+  }
 };
 
 // --------------------setFavoriteArticle--------------------
@@ -32,18 +50,18 @@ export const setFavoriteArticle = (slug, favorited) => async (dispatch) => {
 };
 
 // --------------------getCurrentArticleFetch--------------------
-export const getCurrentArticleFetch = (slug) => async (dispatch) => {
-  dispatch(changeLoadingStatus(true));
-  try {
-    const url = routes.getArticleUrl(slug);
-    const response = await axios.get(url);
-    const { article } = response.data;
-    dispatch(loadCurrentArticle(article));
-    dispatch(changeLoadingStatus(false));
-  } catch (err) {
-    dispatch(changeLoadingStatus(false));
-  }
-};
+// export const getCurrentArticleFetch = (slug) => async (dispatch) => {
+//   dispatch(changeLoadingStatus(true));
+//   try {
+//     const url = routes.getArticleUrl(slug);
+//     const response = await axios.get(url);
+//     const { article } = response.data;
+//     dispatch(loadCurrentArticle(article));
+//     dispatch(changeLoadingStatus(false));
+//   } catch (err) {
+//     dispatch(changeLoadingStatus(false));
+//   }
+// };
 
 // --------------------getArticlesFetch--------------------
 export const getArticlesListFetch = (limit, offset) => async (dispatch) => {

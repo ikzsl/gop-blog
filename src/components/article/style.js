@@ -24,3 +24,14 @@ export const Tag = styled.span`
   padding: 5px;
   border: 1px solid green;
 `;
+
+export const FavoriteButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  :focus {
+    outline: none;
+    /* outline-color: blue; */
+  }
+`;

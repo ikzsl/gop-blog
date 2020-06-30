@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { formatDistance } from 'date-fns';
-import { getArticlesListFetch, setFavoriteArticle } from '../../actions/actions';
+import { getArticlesListFetch, setFavoriteArticle, setCurrentPage } from '../../actions/actions';
 
 import {
   ArticlesList,
@@ -17,6 +17,7 @@ import {
   ArticleAuthor,
   ArticleAuthorInfo,
   AuthorImage,
+  Username,
 } from './style';
 
 import 'antd/dist/antd.css';
@@ -25,16 +26,23 @@ export default () => {
   const dispatch = useDispatch();
   const { articles, articlesCount = 1 } = useSelector((state) => state.articlesData);
   const { id } = useSelector((state) => state.currentUser);
+  const currentPage = useSelector((state) => state.currentPage);
   const isLogged = !!id;
 
   const handleChange = (page, pageSize) => {
     dispatch(getArticlesListFetch(pageSize, page * pageSize - pageSize));
+    dispatch(setCurrentPage(page));
   };
 
   const handleLike = (slug, favorited) => {
     // console.log(slug, favorited);
     dispatch(setFavoriteArticle(slug, favorited));
   };
+
+  useEffect(() => {
+    dispatch(getArticlesListFetch(10, currentPage * 10 - 10));
+    // eslint-disable-next-line
+  }, []);
 
   const articlesList = (
     <ArticlesList className="articlesList">
@@ -66,8 +74,7 @@ export default () => {
             </div>
             <ArticleAuthor className="articleAuthor">
               <ArticleAuthorInfo>
-                {author.username}
-                <br />
+                <Username>{author.username}</Username>
                 {formatDistance(new Date(createdAt), Date.now(), {
                   includeSeconds: true,
                 })}
@@ -90,6 +97,7 @@ export default () => {
           onChange={handleChange}
           showSizeChanger={false}
           defaultCurrent={1}
+          current={currentPage}
         />
       </Container>
     </>

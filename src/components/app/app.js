@@ -9,9 +9,10 @@ import SignupForm from '../../pages/signupForm/SignupForm';
 import LoginForm from '../../pages/loginForm/LoginForm';
 import Articles from '../articles/Articles';
 import Article from '../article/Article';
+import AddForm from '../addForm/AddForm';
 import PageNotFound from '../../pages/pageNotFound/pageNotFound';
 
-// import PrivateRoute from '../privateRoute/PrivateRoute';
+import PrivateRoute from '../privateRoute/PrivateRoute';
 import PublicRoute from '../publicRoute/PublicRoute';
 
 import './app.scss';
@@ -39,7 +40,9 @@ const App = () => {
       <Loader loaded={!loading} className="loader" />
       <Switch>
         <Route exact path="/" component={Articles} />
-        <Route path="/articles/:slug" component={Article} />
+        <Route exact path="/articles/:slug" component={Article} />
+        <PrivateRoute exact path="/articles/:slug/edit" component={() => <h1>edit</h1>} />
+        <PrivateRoute exact path="/add" component={AddForm} />
         <PublicRoute exact path="/login" component={LoginForm} />
         <PublicRoute exact path="/signup" component={SignupForm} />
         <Route path="*" component={PageNotFound} />

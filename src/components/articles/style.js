@@ -61,8 +61,14 @@ export const ArticleAuthor = styled.div`
 
 export const ArticleAuthorInfo = styled.div`
   margin-right: 10px;
+  text-align: right;
 `;
 
 export const AuthorImage = styled.img`
   border-radius: 50%;
+`;
+
+export const Username = styled.div`
+  font-size: 22px;
+  color: black;
 `;

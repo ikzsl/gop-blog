@@ -1,19 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getCurrentArticleFetch } from '../../actions/actions';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { setFavoriteArticle } from '../../actions/actions';
 import {
-  Container, Description, Title, Body, Tag,
+  Container, Description, Title, Body, Tag, FavoriteButton,
 } from './style';
 
 const Article = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
 
-  useEffect(() => {
-    dispatch(getCurrentArticleFetch(slug));
-    // eslint-disable-next-line
-  }, []);
+  const { id } = useSelector((state) => state.currentUser);
+  const isLogged = !!id;
+
+  const handleLike = (slugId, favorited) => {
+    // console.log(slug, favorited);
+    dispatch(setFavoriteArticle(slugId, favorited));
+  };
+
+  const articles = useSelector((state) => state.articlesData.articles);
+  const currentArticle = articles.find((article) => article.slug === slug);
 
   const {
     title,
@@ -25,7 +32,7 @@ const Article = () => {
     author,
     favorited,
     favoritesCount,
-  } = useSelector((state) => state.currentArticle);
+  } = currentArticle;
 
   return (
     <Container>
@@ -41,8 +48,13 @@ const Article = () => {
       <br />
       {author ? author.username : null}
       <br />
-      {favorited ? <p>liked</p> : <p>notLiked</p>}
-      <br />
+      {isLogged ? (
+        <FavoriteButton type="button" onClick={() => handleLike(slug, favorited)}>
+          {favorited ? <HeartFilled /> : <HeartOutlined />}
+        </FavoriteButton>
+      ) : (
+        <HeartOutlined />
+      )}
       {favoritesCount}
     </Container>
   );

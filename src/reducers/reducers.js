@@ -28,23 +28,30 @@ const articlesData = handleActions(
   {
     [actions.loadArticlesList]: (state, { payload }) => payload,
     [actions.favoriteArticle]: (state, { payload }) => {
-      const likedArticle = state.articles.filter((article) => article.slug === payload.slug);
+      const likedArticle = state.articles.find((article) => article.slug === payload.slug);
       // console.log(payload.slug, payload.favorited);
-      likedArticle[0].favorited = !payload.favorited;
-      likedArticle[0].favoritesCount = payload.favorited
-        ? likedArticle[0].favoritesCount - 1
-        : likedArticle[0].favoritesCount + 1;
+      likedArticle.favorited = !payload.favorited;
+      likedArticle.favoritesCount = payload.favorited
+        ? likedArticle.favoritesCount - 1
+        : likedArticle.favoritesCount + 1;
       return { ...state };
     },
   },
   {},
 );
 
-const currentArticle = handleActions(
+// const currentArticle = handleActions(
+//   {
+//     [actions.loadCurrentArticle]: (state, { payload }) => payload,
+//   },
+//   {},
+// );
+
+const currentPage = handleActions(
   {
-    [actions.loadCurrentArticle]: (state, { payload }) => payload,
+    [actions.setCurrentPage]: (state, { payload }) => payload,
   },
-  {},
+  1,
 );
 
 export default combineReducers({
@@ -52,5 +59,5 @@ export default combineReducers({
   errors,
   loading,
   articlesData,
-  currentArticle,
+  currentPage,
 });
