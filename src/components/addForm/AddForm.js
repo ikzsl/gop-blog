@@ -4,11 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
-  Form, Input, Table, SubmitButton, AddRowButton,
+  Form, Input, Table, SubmitButton, AddRowButton, RemoveRowButton,
 } from 'formik-antd';
-import { FileAddOutlined, TagOutlined } from '@ant-design/icons';
+import { FileAddOutlined, TagOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { articlePostFetch, setCurrentPage } from '../../actions/actions';
+
+import { Container, ButtonContainer } from './style';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('required'),
@@ -86,14 +88,19 @@ const AddForm = () => {
                   title: 'Tags',
                   key: 'tag',
                   render: (text, record, i) => (
-                    <Input
-                      name={`tagList[${i}]`}
-                      placeholder="Телепатия"
-                      size="large"
-                      suffix={<TagOutlined />}
-                      onPressEnter={handleClickButton}
-                      autoFocus
-                    />
+                    <Container>
+                      <Input
+                        name={`tagList[${i}]`}
+                        placeholder="tag"
+                        size="large"
+                        suffix={<TagOutlined />}
+                        onPressEnter={handleClickButton}
+                        autoFocus
+                      />
+                      <ButtonContainer>
+                        <RemoveRowButton name="tagList" icon={<DeleteOutlined />} />
+                      </ButtonContainer>
+                    </Container>
                   ),
                 },
               ]}
@@ -107,7 +114,7 @@ const AddForm = () => {
               className="skillsButton"
               id="addTagButton"
             >
-              Добавить суперспособность
+              add tag
             </AddRowButton>
           </div>
 
