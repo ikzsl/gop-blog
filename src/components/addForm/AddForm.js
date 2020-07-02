@@ -8,7 +8,7 @@ import {
 } from 'formik-antd';
 import { FileAddOutlined, TagOutlined } from '@ant-design/icons';
 
-import { articlePostFetch } from '../../actions/actions';
+import { articlePostFetch, setCurrentPage } from '../../actions/actions';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('required'),
@@ -28,8 +28,9 @@ const AddForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = (values, { setFieldError }) => {
+  const handleSubmit = async (values, { setFieldError }) => {
     dispatch(articlePostFetch(values, setFieldError));
+    dispatch(setCurrentPage(1));
     history.push('/');
   };
 
