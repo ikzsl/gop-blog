@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 0;
   margin: 0 auto;
   width: 80%;
+`;
+
+export const ArticleContainer = styled.div`
+  padding: 20px;
+  min-height: 90vh;
+  background-color: white;
 `;
 
 export const Title = styled.div`

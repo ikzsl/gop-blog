@@ -89,17 +89,15 @@ export default () => {
   );
 
   return (
-    <>
+    <Container>
       {articlesList}
-      <Container>
-        <Pagination
-          total={articlesCount}
-          onChange={handleChange}
-          showSizeChanger={false}
-          defaultCurrent={1}
-          current={currentPage}
-        />
-      </Container>
-    </>
+      <Pagination
+        total={articlesCount}
+        onChange={handleChange}
+        showSizeChanger={false}
+        defaultCurrent={1}
+        current={currentPage}
+      />
+    </Container>
   );
 };

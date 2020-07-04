@@ -40,12 +40,12 @@ const articlesData = handleActions(
   {},
 );
 
-// const currentArticle = handleActions(
-//   {
-//     [actions.loadCurrentArticle]: (state, { payload }) => payload,
-//   },
-//   {},
-// );
+const currentArticle = handleActions(
+  {
+    [actions.loadCurrentArticle]: (state, { payload }) => payload,
+  },
+  {},
+);
 
 const currentPage = handleActions(
   {
@@ -60,4 +60,5 @@ export default combineReducers({
   loading,
   articlesData,
   currentPage,
+  currentArticle,
 });

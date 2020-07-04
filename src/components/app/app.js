@@ -15,7 +15,7 @@ import PageNotFound from '../../pages/pageNotFound/pageNotFound';
 import PrivateRoute from '../privateRoute/PrivateRoute';
 import PublicRoute from '../publicRoute/PublicRoute';
 
-import './app.scss';
+import { Spacer, Container, LoaderContainer } from './style';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,16 +37,21 @@ const App = () => {
   return (
     <HashRouter>
       <Header />
-      <Loader loaded={!loading} className="loader" />
-      <Switch>
-        <Route exact path="/" component={Articles} />
-        <Route exact path="/articles/:slug" component={Article} />
-        <PrivateRoute exact path="/articles/:slug/edit" component={() => <h1>edit</h1>} />
-        <PrivateRoute exact path="/add" component={AddForm} />
-        <PublicRoute exact path="/login" component={LoginForm} />
-        <PublicRoute exact path="/signup" component={SignupForm} />
-        <Route path="*" component={PageNotFound} />
-      </Switch>
+      <LoaderContainer>
+        <Loader loaded={!loading} />
+      </LoaderContainer>
+      <Container>
+        <Spacer />
+        <Switch>
+          <Route exact path="/" component={Articles} />
+          <Route exact path="/articles/:slug" component={Article} />
+          <PrivateRoute exact path="/articles/:slug/edit" component={() => <h1>edit</h1>} />
+          <PrivateRoute exact path="/add" component={AddForm} />
+          <PublicRoute exact path="/login" component={LoginForm} />
+          <PublicRoute exact path="/signup" component={SignupForm} />
+          <Route path="*" component={PageNotFound} />
+        </Switch>
+      </Container>
     </HashRouter>
   );
 };

@@ -13,7 +13,7 @@ export const Article = styled.li`
   padding: 20px;
   text-decoration: none;
   list-style: none;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   min-height: 140px;

@@ -2,11 +2,21 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { LogoutOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { logoutUser } from '../../actions/actions';
 
-import './header.scss';
-// import logo from '../../logo.png';
+import userPic from '../../img/userPic.png';
+import logo from '../../logo.png';
+
+import {
+  HeaderContainer,
+  NavList,
+  NavLinkItem,
+  UserName,
+  Logo,
+  LogoImage,
+  TextLabel,
+} from './style';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,50 +31,55 @@ const Header = () => {
   const isLogged = !!currentUser.id;
 
   const navbar = (
-    <nav>
-      <ul className="nav">
-        <li>
-          <NavLink to="/login" className="link">
-            Sign In
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/signup" className="link">
-            Sign Up
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
+    <NavList>
+      <NavLinkItem>
+        <Button size="large">
+          <NavLink to="/login">Sign In</NavLink>
+        </Button>
+      </NavLinkItem>
+      <NavLinkItem>
+        <Button size="large">
+          <NavLink to="/signup">Sign Up</NavLink>
+        </Button>
+      </NavLinkItem>
+    </NavList>
   );
 
   const navbarLogged = (
-    <nav>
-      <ul className="nav">
-        <li>
-          <NavLink to="/add" size="large">
+    <NavList>
+      <NavLinkItem>
+        <NavLink to="/add" size="large">
+          <Button size="large" icon={<PlusCircleOutlined />}>
             Create Article
-          </NavLink>
-        </li>
-
-        <li className="link">{currentUser.username}</li>
-        <li className="link">
-          <Button disabled={false} size="large" icon={<LogoutOutlined />} onClick={handleExit}>
-            Выйти
           </Button>
-        </li>
-      </ul>
-    </nav>
+        </NavLink>
+      </NavLinkItem>
+
+      <NavLinkItem>
+        <UserName>{currentUser.username}</UserName>
+        <img src={currentUser.image || userPic} alt="userPic" />
+      </NavLinkItem>
+      <NavLinkItem>
+        <Button size="large" danger icon={<LogoutOutlined />} onClick={handleExit}>
+          Log Out
+        </Button>
+      </NavLinkItem>
+    </NavList>
   );
 
   return (
-    <header className="header">
-      <NavLink to="/" className="headline">
-        Гоп-блог
-      </NavLink>
+    <HeaderContainer className="header">
+      <Logo>
+        <NavLink to="/" className="headline">
+          <LogoImage src={logo} alt="logo" />
+          <TextLabel>Gop-Blog</TextLabel>
+        </NavLink>
+      </Logo>
 
       {/* <img src={logo} width="100" alt="logo" /> */}
       {isLogged ? navbarLogged : navbar}
-    </header>
+    </HeaderContainer>
   );
 };
+
 export default Header;

@@ -50,18 +50,18 @@ export const setFavoriteArticle = (slug, favorited) => async (dispatch) => {
 };
 
 // --------------------getCurrentArticleFetch--------------------
-// export const getCurrentArticleFetch = (slug) => async (dispatch) => {
-//   dispatch(changeLoadingStatus(true));
-//   try {
-//     const url = routes.getArticleUrl(slug);
-//     const response = await axios.get(url);
-//     const { article } = response.data;
-//     dispatch(loadCurrentArticle(article));
-//     dispatch(changeLoadingStatus(false));
-//   } catch (err) {
-//     dispatch(changeLoadingStatus(false));
-//   }
-// };
+export const getCurrentArticleFetch = (slug) => async (dispatch) => {
+  dispatch(changeLoadingStatus(true));
+  try {
+    const url = routes.getArticleUrl(slug);
+    const response = await axios.get(url);
+    const { article } = response.data;
+    dispatch(loadCurrentArticle(article));
+    dispatch(changeLoadingStatus(false));
+  } catch (err) {
+    dispatch(changeLoadingStatus(false));
+  }
+};
 
 // --------------------getArticlesFetch--------------------
 export const getArticlesListFetch = (limit, offset) => async (dispatch) => {
