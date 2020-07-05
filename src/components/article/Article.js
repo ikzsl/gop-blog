@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { HeartOutlined, HeartFilled, EditOutlined } from '@ant-design/icons';
 import { setFavoriteArticle, getCurrentArticleFetch } from '../../actions/actions';
 import {
   Container,
@@ -21,12 +21,12 @@ const Article = () => {
     // eslint-disable-next-line
   }, []);
 
-  const { id } = useSelector((state) => state.currentUser);
+  const { id, username } = useSelector((state) => state.currentUser);
   const isLogged = !!id;
 
-  const handleLike = (slugId, favorited) => {
-    // console.log(slug, favorited);
-    dispatch(setFavoriteArticle(slugId, favorited));
+  const handleLike = async (slugId, favorited) => {
+    await dispatch(setFavoriteArticle(slugId, favorited));
+    await dispatch(getCurrentArticleFetch(slugId));
   };
 
   const currentArticle = useSelector((state) => state.currentArticle);
@@ -42,6 +42,15 @@ const Article = () => {
     favorited,
     favoritesCount,
   } = currentArticle;
+
+  const EditButton = (
+    <>
+      <br />
+      edit
+      {' '}
+      <EditOutlined />
+    </>
+  );
 
   return (
     <Container>
@@ -65,6 +74,7 @@ const Article = () => {
           <HeartOutlined />
         )}
         {favoritesCount}
+        {author && username === author.username ? EditButton : null}
       </ArticleContainer>
     </Container>
   );

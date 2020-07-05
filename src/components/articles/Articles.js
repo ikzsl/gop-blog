@@ -16,6 +16,7 @@ import {
   Title,
   ArticleAuthor,
   ArticleAuthorInfo,
+  ArticleContainer,
   AuthorImage,
   Username,
 } from './style';
@@ -24,8 +25,8 @@ import 'antd/dist/antd.css';
 
 export default () => {
   const dispatch = useDispatch();
-  const { articles, articlesCount = 1 } = useSelector((state) => state.articlesData);
-  const { id } = useSelector((state) => state.currentUser);
+  const { articles = [], articlesCount = 1 } = useSelector((state) => state.articlesData);
+  const { id, username } = useSelector((state) => state.currentUser);
   const currentPage = useSelector((state) => state.currentPage);
   const isLogged = !!id;
 
@@ -45,13 +46,13 @@ export default () => {
   }, []);
 
   const articlesList = (
-    <ArticlesList className="articlesList">
+    <ArticlesList>
       {articles
         ? articles.map(({
           slug, title, tagList, author, createdAt, favoritesCount, favorited,
         }) => (
-          <Article key={slug} className="article">
-            <div className="articleInfo">
+          <Article key={slug} currentUser={username === author.username}>
+            <ArticleContainer>
               <NavLink to={`/articles/${slug}`}>
                 <Title>{title}</Title>
               </NavLink>
@@ -66,13 +67,11 @@ export default () => {
               {favoritesCount}
               <TagList>
                 {tagList.map((tag) => (
-                  <Tag key={tag} className="tag">
-                    {tag}
-                  </Tag>
+                  <Tag key={tag}>{tag}</Tag>
                 ))}
               </TagList>
-            </div>
-            <ArticleAuthor className="articleAuthor">
+            </ArticleContainer>
+            <ArticleAuthor>
               <ArticleAuthorInfo>
                 <Username>{author.username}</Username>
                 {formatDistance(new Date(createdAt), Date.now(), {

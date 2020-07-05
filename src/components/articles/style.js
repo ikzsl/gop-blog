@@ -14,7 +14,8 @@ export const Article = styled.li`
   text-decoration: none;
   list-style: none;
   background-color: rgb(255, 255, 255);
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 4px 12px
+    ${(props) => (props.currentUser ? 'rgba(0, 255, 0, 0.15)' : 'rgba(0, 0, 0, 0.15)')};
   border-radius: 5px;
   min-height: 140px;
 `;
@@ -60,6 +61,11 @@ export const ArticleAuthor = styled.div`
 `;
 
 export const ArticleAuthorInfo = styled.div`
+  margin-right: 10px;
+  text-align: right;
+`;
+
+export const ArticleContainer = styled.div`
   margin-right: 10px;
   text-align: right;
 `;

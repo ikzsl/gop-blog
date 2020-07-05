@@ -31,8 +31,8 @@ const AddForm = () => {
   const history = useHistory();
 
   const handleSubmit = async (values, { setFieldError }) => {
-    dispatch(articlePostFetch(values, setFieldError));
-    dispatch(setCurrentPage(1));
+    await dispatch(articlePostFetch(values, setFieldError));
+    await dispatch(setCurrentPage(1));
     history.push('/');
   };
 
