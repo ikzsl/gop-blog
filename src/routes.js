@@ -10,4 +10,5 @@ export default {
   getArticlesListUrl: (limit = 10, offset = 0) => `articles?limit=${limit}&offset=${offset}`,
   setFavoriteArticleURL: (slug) => `articles/${slug}/favorite`,
   articlePostUrl: () => 'articles',
+  articleEditUrl: (slug) => `articles/${slug}`,
 };

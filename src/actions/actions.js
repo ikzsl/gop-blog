@@ -19,6 +19,20 @@ const userFetch = async (user, dispatch, url) => {
   dispatch(loginUser(data.user));
 };
 
+// ------------------ articleEditFetch ----------------------
+export const articleEditFetch = (article, slug) => async (dispatch) => {
+  dispatch(changeLoadingStatus(true));
+  try {
+    const url = routes.articleEditUrl(slug);
+    await axios.put(url, { article });
+    dispatch(changeLoadingStatus(false));
+  } catch ({ response }) {
+    const { errors } = response.data;
+    dispatch(changeFetchStatus(errors));
+    dispatch(changeLoadingStatus(false));
+  }
+};
+
 // ------------------ articlePostFetch ----------------------
 export const articlePostFetch = (article, setFieldError) => async (dispatch) => {
   dispatch(changeLoadingStatus(true));

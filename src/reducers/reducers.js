@@ -27,9 +27,9 @@ const loading = handleActions(
 const articlesData = handleActions(
   {
     [actions.loadArticlesList]: (state, { payload }) => payload,
+    [actions.loadArticlesList]: (state, { payload }) => payload,
     [actions.favoriteArticle]: (state, { payload }) => {
       const likedArticle = state.articles.find((article) => article.slug === payload.slug);
-      // console.log(payload.slug, payload.favorited);
       likedArticle.favorited = !payload.favorited;
       likedArticle.favoritesCount = payload.favorited
         ? likedArticle.favoritesCount - 1

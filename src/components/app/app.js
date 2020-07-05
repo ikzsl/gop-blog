@@ -10,6 +10,7 @@ import LoginForm from '../../pages/loginForm/LoginForm';
 import Articles from '../articles/Articles';
 import Article from '../article/Article';
 import AddForm from '../addForm/AddForm';
+import EditForm from '../editForm/EditForm';
 import PageNotFound from '../../pages/pageNotFound/pageNotFound';
 
 import PrivateRoute from '../privateRoute/PrivateRoute';
@@ -45,7 +46,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Articles} />
           <Route exact path="/articles/:slug" component={Article} />
-          <PrivateRoute exact path="/articles/:slug/edit" component={() => <h1>edit</h1>} />
+          <PrivateRoute exact path="/articles/:slug/edit" component={EditForm} />
           <PrivateRoute exact path="/add" component={AddForm} />
           <PublicRoute exact path="/login" component={LoginForm} />
           <PublicRoute exact path="/signup" component={SignupForm} />
