@@ -16,6 +16,7 @@ import {
   Logo,
   LogoImage,
   TextLabel,
+  ButtonLabel,
 } from './style';
 
 const Header = () => {
@@ -50,7 +51,7 @@ const Header = () => {
       <NavLinkItem>
         <NavLink to="/add" size="large">
           <Button size="large" icon={<PlusCircleOutlined />}>
-            Create Article
+            <ButtonLabel>Create Article</ButtonLabel>
           </Button>
         </NavLink>
       </NavLinkItem>
@@ -61,7 +62,7 @@ const Header = () => {
       </NavLinkItem>
       <NavLinkItem>
         <Button size="large" danger icon={<LogoutOutlined />} onClick={handleExit}>
-          Log Out
+          <ButtonLabel>Log Out</ButtonLabel>
         </Button>
       </NavLinkItem>
     </NavList>

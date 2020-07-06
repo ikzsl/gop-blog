@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../device';
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -48,4 +49,19 @@ export const LogoImage = styled.img`
 
 export const TextLabel = styled.span`
   color: black;
+  @media ${device.mobileL} {
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+  }
+`;
+
+export const ButtonLabel = styled.span`
+  @media ${device.mobileL} {
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+  }
 `;
