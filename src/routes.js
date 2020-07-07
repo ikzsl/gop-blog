@@ -11,4 +11,5 @@ export default {
   setFavoriteArticleURL: (slug) => `articles/${slug}/favorite`,
   articlePostUrl: () => 'articles',
   articleEditUrl: (slug) => `articles/${slug}`,
+  articleDeleteUrl: (slug) => `articles/${slug}`,
 };

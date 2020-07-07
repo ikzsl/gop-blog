@@ -19,6 +19,20 @@ const userFetch = async (user, dispatch, url) => {
   dispatch(loginUser(data.user));
 };
 
+// ------------------ articleDeleteFetch ----------------------
+export const articleDeleteFetch = (slug) => async (dispatch) => {
+  dispatch(changeLoadingStatus(true));
+  try {
+    const url = routes.articleDeleteUrl(slug);
+    await axios.delete(url);
+    dispatch(changeLoadingStatus(false));
+  } catch ({ response }) {
+    const { errors } = response.data;
+    dispatch(changeFetchStatus(errors));
+    dispatch(changeLoadingStatus(false));
+  }
+};
+
 // ------------------ articleEditFetch ----------------------
 export const articleEditFetch = (article, slug) => async (dispatch) => {
   dispatch(changeLoadingStatus(true));

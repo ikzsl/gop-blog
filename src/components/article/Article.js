@@ -1,8 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { HeartOutlined, HeartFilled, EditOutlined } from '@ant-design/icons';
-import { setFavoriteArticle, getCurrentArticleFetch } from '../../actions/actions';
+import { Link, useParams, useHistory } from 'react-router-dom';
+import {
+  HeartOutlined, HeartFilled, EditOutlined, DeleteOutlined,
+} from '@ant-design/icons';
+import {
+  setFavoriteArticle,
+  getCurrentArticleFetch,
+  setCurrentPage,
+  articleDeleteFetch,
+} from '../../actions/actions';
 import {
   Container,
   Description,
@@ -15,6 +22,7 @@ import {
 
 const Article = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { slug } = useParams();
   useEffect(() => {
     dispatch(getCurrentArticleFetch(slug));
@@ -27,6 +35,12 @@ const Article = () => {
   const handleLike = async (slugId, favorited) => {
     await dispatch(setFavoriteArticle(slugId, favorited));
     await dispatch(getCurrentArticleFetch(slugId));
+  };
+
+  const handleDelete = async () => {
+    await dispatch(articleDeleteFetch(slug));
+    await dispatch(setCurrentPage(1));
+    history.push('/');
   };
 
   const currentArticle = useSelector((state) => state.currentArticle);
@@ -43,11 +57,20 @@ const Article = () => {
     favoritesCount,
   } = currentArticle;
 
+  const DeleteButton = (
+    <button type="button" onClick={handleDelete}>
+      Delete
+      {' '}
+      <DeleteOutlined />
+      <br />
+    </button>
+  );
+
   const EditButton = (
     <button type="button">
       <Link to={`/articles/${slug}/edit`}>
+        Edit
         {' '}
-        edit
         <EditOutlined />
       </Link>
       <br />
@@ -77,6 +100,7 @@ const Article = () => {
         )}
         {favoritesCount}
         {author && username === author.username ? EditButton : null}
+        {author && username === author.username ? DeleteButton : null}
       </ArticleContainer>
     </Container>
   );
