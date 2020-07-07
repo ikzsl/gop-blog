@@ -35,6 +35,12 @@ export const UserName = styled.span`
   margin: 10px;
   font-size: 20px;
   color: black;
+  @media ${device.mobileL} {
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+  }
 `;
 
 export const Logo = styled.div`

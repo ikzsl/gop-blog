@@ -69,9 +69,9 @@ const Header = () => {
   );
 
   return (
-    <HeaderContainer className="header">
+    <HeaderContainer>
       <Logo>
-        <NavLink to="/" className="headline">
+        <NavLink to="/">
           <LogoImage src={logo} alt="logo" />
           <TextLabel>Gop-Blog</TextLabel>
         </NavLink>
