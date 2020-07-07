@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Popconfirm } from 'antd';
 import {
   HeartOutlined, HeartFilled, EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';
@@ -64,15 +64,22 @@ const Article = () => {
   } = currentArticle;
 
   const DeleteButton = (
-    <Button type="danger" onClick={handleDelete}>
-      Delete
-      {' '}
-      <DeleteOutlined />
-    </Button>
+    <Popconfirm
+      title="Are you sure delete this task?"
+      onConfirm={handleDelete}
+      okText="Yes"
+      cancelText="No"
+    >
+      <Button type="danger">
+        Delete
+        {' '}
+        <DeleteOutlined />
+      </Button>
+    </Popconfirm>
   );
 
   const EditButton = (
-    <Button type="button">
+    <Button type="primary">
       <Link to={`/articles/${slug}/edit`}>
         Edit
         {' '}

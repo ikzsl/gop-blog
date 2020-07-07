@@ -5,7 +5,9 @@ export const Spacer = styled.div`
 `;
 
 export const Container = styled.div`
-  /* background: rgba(255, 255, 255, 0.8); */
+  /* background: rgba(255, 255, 255, 0.9); */
+  max-width: 900px;
+  margin: 0 auto;
   /* position: fixed; */
 `;
 

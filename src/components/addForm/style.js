@@ -9,7 +9,7 @@ export const Container = styled.div`
   padding: 20px;
   background-color: #fff;
   border-radius: 6px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(0, 0, 0, 0.3);
 `;
 
 export const InputContainer = styled.div`

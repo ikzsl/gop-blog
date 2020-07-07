@@ -4,7 +4,8 @@ export const Container = styled.div`
   margin: 0 auto;
   margin-top: 100px;
   margin-bottom: 40px;
-  width: 80%;
+  border-radius: 6px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 `;
 
@@ -57,6 +58,7 @@ export const ArticleHeader = styled.div`
 
 export const RightHeaderContainer = styled.div`
   display: flex;
+  width: 200px;
   flex-direction: column;
 `;
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ArticlesList = styled.ul`
   padding: 0;
   margin: 0 auto;
-  max-width: 900px;
+  /* max-width: 900px; */
 `;
 
 export const Article = styled.li`
