@@ -2,17 +2,20 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   margin: 0 auto;
+  margin-top: 100px;
+  margin-bottom: 40px;
   width: 80%;
+  overflow: hidden;
 `;
 
 export const ArticleContainer = styled.div`
   padding: 20px;
-  min-height: 90vh;
+  /* min-height: 90vh; */
   background-color: white;
 `;
 
-export const Title = styled.div`
-  font-size: 40px;
+export const Title = styled.span`
+  font-size: 20px;
   color: #1890ff;
 `;
 
@@ -21,13 +24,14 @@ export const Description = styled.div`
 `;
 
 export const Body = styled.div`
-  font-size: 24px;
+  font-size: 16px;
   color: black;
 `;
 
 export const Tag = styled.span`
-  padding: 5px;
-  border: 1px solid green;
+  padding: 0 5px;
+  border: 1px solid gray;
+  border-radius: 4px;
 `;
 
 export const FavoriteButton = styled.button`
@@ -39,4 +43,28 @@ export const FavoriteButton = styled.button`
     outline: none;
     /* outline-color: blue; */
   }
+`;
+
+export const TagsContainer = styled.div`
+  margin: 10px 0;
+`;
+
+export const ArticleHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+`;
+
+export const RightHeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const AuthorImage = styled.img`
+  border-radius: 50%;
+`;
+
+export const ControlsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

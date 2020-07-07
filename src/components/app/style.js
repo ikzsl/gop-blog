@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Spacer = styled.div`
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 `;
 
 export const Container = styled.div`

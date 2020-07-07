@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -10,7 +10,13 @@ import { FileAddOutlined, TagOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import { articlePostFetch, setCurrentPage } from '../../actions/actions';
 
-import { Container, ButtonContainer } from './style';
+import {
+  InputContainer,
+  ButtonContainer,
+  Container,
+  SubmitButtonContainer,
+  RequiredStar,
+} from './style';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('required'),
@@ -42,42 +48,42 @@ const AddForm = () => {
   };
 
   return (
-    <div className="formContainer">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form className="form">
-          <h1>Create Article</h1>
-          <div className="formItem">
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      <Container>
+        <Form>
+          <h1>Create new article</h1>
+          <div>
             <label htmlFor="title">
               title
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="title">
               <Input id="title" name="title" placeholder="title" size="large" />
             </Form.Item>
           </div>
-          <div className="formItem">
+          <div>
             <label htmlFor="description">
               description
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="description">
               <Input id="description" name="description" placeholder="description" size="large" />
             </Form.Item>
           </div>
-          <div className="formItem">
+          <div>
             <label htmlFor="body">
               body
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="body">
               <Input.TextArea id="body" name="body" placeholder="your text" size="large" />
             </Form.Item>
           </div>
-          <div className="formItem">
+          <div>
             <Table
               name="tagList"
               rowKey={(row) => `${row.id}`}
@@ -88,7 +94,7 @@ const AddForm = () => {
                   title: 'Tags',
                   key: 'tag',
                   render: (text, record, i) => (
-                    <Container>
+                    <InputContainer>
                       <Input
                         name={`tagList[${i}]`}
                         placeholder="tag"
@@ -100,43 +106,39 @@ const AddForm = () => {
                       <ButtonContainer>
                         <RemoveRowButton name="tagList" icon={<DeleteOutlined />} />
                       </ButtonContainer>
-                    </Container>
+                    </InputContainer>
                   ),
                 },
               ]}
             />
-
-            <AddRowButton
-              name="tagList"
-              createNewRow={(text) => text || ''}
-              size="large"
-              type="primary"
-              className="skillsButton"
-              id="addTagButton"
-            >
-              add tag
-            </AddRowButton>
+            <ButtonContainer>
+              <AddRowButton
+                name="tagList"
+                createNewRow={(text) => text || ''}
+                size="large"
+                type="primary"
+                block="true"
+                id="addTagButton"
+              >
+                Add tag
+              </AddRowButton>
+            </ButtonContainer>
           </div>
 
-          <div className="formButtonsContainer">
+          <SubmitButtonContainer>
             <SubmitButton
               loading={false}
               disabled={false}
               size="large"
-              shape="round"
+              block="true"
               icon={<FileAddOutlined />}
-              className="button"
             >
-              Add article
+              Send
             </SubmitButton>
-          </div>
+          </SubmitButtonContainer>
         </Form>
-      </Formik>
-      <div className="link-container">
-        <span>Уже зарегистрировались? </span>
-        <Link to="/login">Войти</Link>
-      </div>
-    </div>
+      </Container>
+    </Formik>
   );
 };
 

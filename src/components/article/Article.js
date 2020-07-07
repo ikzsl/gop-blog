@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
+import { Button } from 'antd';
 import {
   HeartOutlined, HeartFilled, EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';
@@ -18,6 +19,11 @@ import {
   Tag,
   FavoriteButton,
   ArticleContainer,
+  TagsContainer,
+  ArticleHeader,
+  AuthorImage,
+  RightHeaderContainer,
+  ControlsContainer,
 } from './style';
 
 const Article = () => {
@@ -58,49 +64,60 @@ const Article = () => {
   } = currentArticle;
 
   const DeleteButton = (
-    <button type="button" onClick={handleDelete}>
+    <Button type="danger" onClick={handleDelete}>
       Delete
       {' '}
       <DeleteOutlined />
-      <br />
-    </button>
+    </Button>
   );
 
   const EditButton = (
-    <button type="button">
+    <Button type="button">
       <Link to={`/articles/${slug}/edit`}>
         Edit
         {' '}
         <EditOutlined />
       </Link>
-      <br />
-    </button>
+    </Button>
   );
 
   return (
     <Container>
       <ArticleContainer>
-        <Title>{title}</Title>
-        <Description>{description}</Description>
-        <Tag>{tagList}</Tag>
+        <ArticleHeader>
+          <div>
+            <Title>{title}</Title>
+            {' '}
+            {isLogged ? (
+              <FavoriteButton type="button" onClick={() => handleLike(slug, favorited)}>
+                {favorited ? <HeartFilled /> : <HeartOutlined />}
+              </FavoriteButton>
+            ) : (
+              <HeartOutlined />
+            )}
+            {' '}
+            {favoritesCount}
+            <TagsContainer>{tagList && tagList.length ? <Tag>{tagList}</Tag> : null}</TagsContainer>
+            <Description>{description}</Description>
+          </div>
+
+          <RightHeaderContainer>
+            <br />
+            {author ? author.username : null}
+            {author ? <AuthorImage src={author.image} alt="" width="46" height="46" /> : null}
+            <br />
+            {createdAt}
+            <br />
+            {updatedAt}
+            <br />
+            <ControlsContainer>
+              {author && username === author.username ? EditButton : null}
+              {author && username === author.username ? DeleteButton : null}
+            </ControlsContainer>
+          </RightHeaderContainer>
+        </ArticleHeader>
+
         <Body>{body}</Body>
-        <br />
-        {createdAt}
-        <br />
-        {updatedAt}
-        <br />
-        {author ? author.username : null}
-        <br />
-        {isLogged ? (
-          <FavoriteButton type="button" onClick={() => handleLike(slug, favorited)}>
-            {favorited ? <HeartFilled /> : <HeartOutlined />}
-          </FavoriteButton>
-        ) : (
-          <HeartOutlined />
-        )}
-        {favoritesCount}
-        {author && username === author.username ? EditButton : null}
-        {author && username === author.username ? DeleteButton : null}
       </ArticleContainer>
     </Container>
   );

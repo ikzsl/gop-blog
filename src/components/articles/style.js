@@ -9,7 +9,7 @@ export const ArticlesList = styled.ul`
 export const Article = styled.li`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 0 20px 20px 20px;
   padding: 20px;
   text-decoration: none;
   list-style: none;
