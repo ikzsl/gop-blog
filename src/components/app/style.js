@@ -15,4 +15,5 @@ export const LoaderContainer = styled.div`
   top: 50%;
   left: 50%;
   position: fixed;
+  z-index: 10;
 `;
