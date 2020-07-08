@@ -7,7 +7,7 @@ import { Form, Input, SubmitButton } from 'formik-antd';
 import { MailOutlined, LoginOutlined } from '@ant-design/icons';
 import { userLoginFetch } from '../../actions/actions';
 
-import { Container, RequiredStar } from './style';
+import { Container, RequiredStar, ButtonContainer } from './style';
 
 const initialValues = {
   password: '',
@@ -58,17 +58,18 @@ const LoginForm = () => {
             </Form.Item>
           </div>
 
-          <div>
+          <ButtonContainer>
             <SubmitButton
               loading={false}
               disabled={false}
               size="large"
               shape="round"
+              block="true"
               icon={<LoginOutlined />}
             >
               Войти
             </SubmitButton>
-          </div>
+          </ButtonContainer>
         </Form>
       </Formik>
       <div>

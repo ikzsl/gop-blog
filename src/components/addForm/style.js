@@ -24,7 +24,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const SubmitButtonContainer = styled.div`
-  margin: 10px auto;
+  margin: 40px auto 10px;
   text-align: center;
   width: 50%;
 `;

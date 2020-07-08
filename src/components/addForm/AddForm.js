@@ -130,6 +130,7 @@ const AddForm = () => {
               loading={false}
               disabled={false}
               size="large"
+              shape="round"
               block="true"
               icon={<FileAddOutlined />}
             >

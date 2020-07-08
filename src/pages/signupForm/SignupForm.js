@@ -8,7 +8,7 @@ import { MailOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons';
 
 import { userPostFetch } from '../../actions/actions';
 
-import { Container, RequiredStar } from './style';
+import { Container, RequiredStar, ButtonContainer } from './style';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -87,17 +87,18 @@ const Signup = () => {
             </Form.Item>
           </div>
 
-          <div>
+          <ButtonContainer>
             <SubmitButton
               loading={false}
               disabled={false}
               size="large"
               shape="round"
+              block="true"
               icon={<UserAddOutlined />}
             >
               Зарегистрироваться
             </SubmitButton>
-          </div>
+          </ButtonContainer>
         </Form>
       </Formik>
       <div>
