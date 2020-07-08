@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
 import { Button, Popconfirm } from 'antd';
 import {
   HeartOutlined, HeartFilled, EditOutlined, DeleteOutlined,
@@ -65,7 +66,7 @@ const Article = () => {
 
   const DeleteButton = (
     <Popconfirm
-      title="Are you sure delete this task?"
+      title="Are you sure delete this article?"
       onConfirm={handleDelete}
       okText="Yes"
       cancelText="No"
@@ -86,6 +87,25 @@ const Article = () => {
         <EditOutlined />
       </Link>
     </Button>
+  );
+
+  const metaInfo = (
+    <>
+      <div>
+        <b>author: </b>
+        {author ? author.username : null}
+        <br />
+        {author ? <AuthorImage src={author.image} alt="" width="46" height="46" /> : null}
+      </div>
+      <br />
+      createdAt:
+      {' '}
+      {createdAt && format(new Date(createdAt), 'hh:mm  MMMMMM dd')}
+      <br />
+      updatedAt:
+      {' '}
+      {updatedAt && format(new Date(updatedAt), 'hh:mm  MMMMMM dd')}
+    </>
   );
 
   return (
@@ -109,14 +129,7 @@ const Article = () => {
           </div>
 
           <RightHeaderContainer>
-            <br />
-            {author ? author.username : null}
-            {author ? <AuthorImage src={author.image} alt="" width="46" height="46" /> : null}
-            <br />
-            {createdAt}
-            <br />
-            {updatedAt}
-            <br />
+            {metaInfo}
             <ControlsContainer>
               {author && username === author.username ? EditButton : null}
               {author && username === author.username ? DeleteButton : null}

@@ -58,7 +58,7 @@ export const ArticleHeader = styled.div`
 
 export const RightHeaderContainer = styled.div`
   display: flex;
-  width: 200px;
+  min-width: 200px;
   flex-direction: column;
 `;
 
@@ -69,4 +69,5 @@ export const AuthorImage = styled.img`
 export const ControlsContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 10px 0;
 `;
