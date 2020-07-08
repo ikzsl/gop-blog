@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 0 auto;
-  margin-top: 100px;
-  margin-bottom: 40px;
+  margin: 100px 20px 40px;
   border-radius: 6px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;
@@ -11,6 +9,7 @@ export const Container = styled.div`
 
 export const ArticleContainer = styled.div`
   padding: 20px;
+
   /* min-height: 90vh; */
   background-color: white;
 `;
