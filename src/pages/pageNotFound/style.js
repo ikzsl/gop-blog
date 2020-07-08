@@ -7,6 +7,7 @@ export const Container = styled.div`
   border-radius: 6px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(0, 0, 0, 0.3);
   background-color: #fff;
+
   overflow: hidden;
 `;
 

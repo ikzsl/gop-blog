@@ -6,7 +6,8 @@ import * as Yup from 'yup';
 import { Form, Input, SubmitButton } from 'formik-antd';
 import { MailOutlined, LoginOutlined } from '@ant-design/icons';
 import { userLoginFetch } from '../../actions/actions';
-import './loginForm.scss';
+
+import { Container, RequiredStar } from './style';
 
 const initialValues = {
   password: '',
@@ -26,15 +27,15 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="formContainer">
+    <Container>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         <Form>
           <h1>Вход</h1>
 
-          <div className="formItem">
+          <div>
             <label htmlFor="email">
               Электропочта
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="email">
               <Input
@@ -47,34 +48,33 @@ const LoginForm = () => {
             </Form.Item>
           </div>
 
-          <div className="formItem">
+          <div>
             <label htmlFor="pwd">
               Пароль
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="password">
               <Input.Password id="pwd" name="password" size="large" autoComplete="off" />
             </Form.Item>
           </div>
 
-          <div className="formButtonsContainer">
+          <div>
             <SubmitButton
               loading={false}
               disabled={false}
               size="large"
               shape="round"
               icon={<LoginOutlined />}
-              className="button"
             >
               Войти
             </SubmitButton>
           </div>
         </Form>
       </Formik>
-      <div className="link-container">
+      <div>
         <Link to="/signup">Зарегистрироваться</Link>
       </div>
-    </div>
+    </Container>
   );
 };
 

@@ -7,7 +7,8 @@ import { Form, Input, SubmitButton } from 'formik-antd';
 import { MailOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons';
 
 import { userPostFetch } from '../../actions/actions';
-import './signupForm.scss';
+
+import { Container, RequiredStar } from './style';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -36,14 +37,14 @@ const Signup = () => {
     dispatch(userPostFetch(values, setFieldError));
   };
   return (
-    <div className="formContainer">
+    <Container>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-        <Form className="form">
+        <Form>
           <h1>Регистрации</h1>
-          <div className="formItem">
+          <div>
             <label htmlFor="username">
               Имя
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="username">
               <Input
@@ -55,10 +56,10 @@ const Signup = () => {
               />
             </Form.Item>
           </div>
-          <div className="formItem">
+          <div>
             <label htmlFor="email">
               Электропочта
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="email">
               <Input
@@ -70,10 +71,10 @@ const Signup = () => {
               />
             </Form.Item>
           </div>
-          <div className="formItem">
+          <div>
             <label htmlFor="pwd">
               Пароль
-              <span className="required-star"> *</span>
+              <RequiredStar> *</RequiredStar>
             </label>
             <Form.Item name="password">
               <Input.Password
@@ -86,25 +87,24 @@ const Signup = () => {
             </Form.Item>
           </div>
 
-          <div className="formButtonsContainer">
+          <div>
             <SubmitButton
               loading={false}
               disabled={false}
               size="large"
               shape="round"
               icon={<UserAddOutlined />}
-              className="button"
             >
               Зарегистрироваться
             </SubmitButton>
           </div>
         </Form>
       </Formik>
-      <div className="link-container">
+      <div>
         <span>Уже зарегистрировались? </span>
         <Link to="/login">Войти</Link>
       </div>
-    </div>
+    </Container>
   );
 };
 
