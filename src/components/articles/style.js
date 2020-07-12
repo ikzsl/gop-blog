@@ -78,3 +78,8 @@ export const Username = styled.div`
   font-size: 22px;
   color: black;
 `;
+
+export const ErrorMesage = styled.div`
+  font-size: 22px;
+  color: red;
+`;

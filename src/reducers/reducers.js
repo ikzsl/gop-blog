@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
+// import __ from 'lodash';
 import * as actions from '../actions/actions';
 
 const currentUser = handleActions(
@@ -24,28 +25,37 @@ const loading = handleActions(
   false,
 );
 
-const articlesData = handleActions(
+const articles = handleActions(
   {
-    [actions.loadArticlesList]: (state, { payload }) => payload,
-    [actions.loadArticlesList]: (state, { payload }) => payload,
+    [actions.loadArticlesList]: (state, { payload }) => payload.articles,
     [actions.favoriteArticle]: (state, { payload }) => {
-      const likedArticle = state.articles.find((article) => article.slug === payload.slug);
-      likedArticle.favorited = !payload.favorited;
-      likedArticle.favoritesCount = payload.favorited
-        ? likedArticle.favoritesCount - 1
-        : likedArticle.favoritesCount + 1;
-      return { ...state };
+      const likedArticle = state.find((article) => article.slug === payload.slug);
+      const newLikedArticle = { ...likedArticle };
+      const idx = state.findIndex((article) => article.slug === payload.slug);
+      newLikedArticle.favorited = !likedArticle.favorited;
+      newLikedArticle.favoritesCount = likedArticle.favorited
+        ? newLikedArticle.favoritesCount - 1
+        : newLikedArticle.favoritesCount + 1;
+      // const newState = __.differenceWith(state, [likedArticle], __.isEqual);
+      return [...state.slice(0, idx), newLikedArticle, ...state.slice(idx + 1)];
     },
   },
-  {},
+  [],
 );
 
-const currentArticle = handleActions(
+const articlesCount = handleActions(
   {
-    [actions.loadCurrentArticle]: (state, { payload }) => payload,
+    [actions.loadArticlesList]: (state, { payload }) => payload.articlesCount,
   },
-  {},
+  1,
 );
+
+// const currentArticle = handleActions(
+//   {
+//     [actions.loadCurrentArticle]: (state, { payload }) => payload,
+//   },
+//   1,
+// );
 
 const currentPage = handleActions(
   {
@@ -58,7 +68,8 @@ export default combineReducers({
   currentUser,
   errors,
   loading,
-  articlesData,
+  articles,
+  articlesCount,
   currentPage,
-  currentArticle,
+  // currentArticle,
 });

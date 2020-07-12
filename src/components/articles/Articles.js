@@ -19,15 +19,18 @@ import {
   ArticleContainer,
   AuthorImage,
   Username,
+  ErrorMesage,
 } from './style';
 
 import 'antd/dist/antd.css';
 
 export default () => {
   const dispatch = useDispatch();
-  const { articles = [], articlesCount = 1 } = useSelector((state) => state.articlesData);
+  const articles = useSelector((state) => state.articles);
+  const articlesCount = useSelector((state) => state.articlesCount);
   const { id, username } = useSelector((state) => state.currentUser);
   const currentPage = useSelector((state) => state.currentPage);
+  const { message } = useSelector((state) => state.errors);
   const isLogged = !!id;
 
   const handleChange = (page, pageSize) => {
@@ -44,6 +47,8 @@ export default () => {
     dispatch(getArticlesListFetch(10, currentPage * 10 - 10));
     // eslint-disable-next-line
   }, []);
+
+  const errorMessage = <ErrorMesage>{message}</ErrorMesage>;
 
   const articlesList = (
     <ArticlesList>
@@ -89,6 +94,7 @@ export default () => {
 
   return (
     <Container>
+      {errorMessage}
       {articlesList}
       <Pagination
         total={articlesCount}

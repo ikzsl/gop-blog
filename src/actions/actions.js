@@ -15,7 +15,7 @@ const userFetch = async (user, dispatch, url) => {
   const response = await axios.post(url, { user });
   const { data } = response;
   localStorage.setItem('token', data.user.token);
-  dispatch(changeFetchStatus(null));
+  dispatch(changeFetchStatus({}));
   dispatch(loginUser(data.user));
 };
 
@@ -66,30 +66,29 @@ export const articlePostFetch = (article, setFieldError) => async (dispatch) => 
 
 // --------------------setFavoriteArticle--------------------
 export const setFavoriteArticle = (slug, favorited) => async (dispatch) => {
-  dispatch(changeLoadingStatus(true));
   try {
+    dispatch(favoriteArticle({ slug, favorited }));
     const url = routes.setFavoriteArticleURL(slug, favorited);
     await (favorited ? axios.delete(url) : axios.post(url));
-    dispatch(favoriteArticle({ slug, favorited }));
-    dispatch(changeLoadingStatus(false));
+    dispatch(changeFetchStatus({}));
   } catch (err) {
-    dispatch(changeLoadingStatus(false));
+    dispatch(changeFetchStatus(err));
   }
 };
 
-// --------------------getCurrentArticleFetch--------------------
-export const getCurrentArticleFetch = (slug) => async (dispatch) => {
-  dispatch(changeLoadingStatus(true));
-  try {
-    const url = routes.getArticleUrl(slug);
-    const response = await axios.get(url);
-    const { article } = response.data;
-    dispatch(loadCurrentArticle(article));
-    dispatch(changeLoadingStatus(false));
-  } catch (err) {
-    dispatch(changeLoadingStatus(false));
-  }
-};
+// // --------------------getCurrentArticleFetch--------------------
+// export const getCurrentArticleFetch = (slug) => async (dispatch) => {
+//   // dispatch(changeLoadingStatus(true));
+//   try {
+//     const url = routes.getArticleUrl(slug);
+//     const response = await axios.get(url);
+//     const { article } = response.data;
+//     dispatch(loadCurrentArticle(article));
+//     // dispatch(changeLoadingStatus(false));
+//   } catch (err) {
+//     // dispatch(changeLoadingStatus(false));
+//   }
+// };
 
 // --------------------getArticlesFetch--------------------
 export const getArticlesListFetch = (limit, offset) => async (dispatch) => {
@@ -154,8 +153,10 @@ export const getProfileFetch = () => async (dispatch) => {
     const { data } = response;
     dispatch(loginUser(data.user));
     dispatch(changeLoadingStatus(false));
+    dispatch(changeFetchStatus({}));
   } catch (err) {
-    if (err.response.status === 401) {
+    dispatch(changeFetchStatus(err));
+    if (err.response && err.response.status === 401) {
       localStorage.removeItem('token');
     }
     dispatch(changeLoadingStatus(false));

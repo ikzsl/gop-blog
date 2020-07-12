@@ -8,9 +8,10 @@ import {
 } from '@ant-design/icons';
 import {
   setFavoriteArticle,
-  getCurrentArticleFetch,
+  // getCurrentArticleFetch,
   setCurrentPage,
   articleDeleteFetch,
+  getArticlesListFetch,
 } from '../../actions/actions';
 import {
   Container,
@@ -25,34 +26,22 @@ import {
   AuthorImage,
   RightHeaderContainer,
   ControlsContainer,
+  ErrorMesage,
 } from './style';
 
 const Article = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { slug } = useParams();
-  useEffect(() => {
-    dispatch(getCurrentArticleFetch(slug));
-    // eslint-disable-next-line
-  }, []);
 
-  const { id, username } = useSelector((state) => state.currentUser);
-  const isLogged = !!id;
+  const articles = useSelector((state) => state.articles);
+  const currentPage = useSelector((state) => state.currentPage);
+  const { message } = useSelector((state) => state.errors);
 
-  const handleLike = async (slugId, favorited) => {
-    await dispatch(setFavoriteArticle(slugId, favorited));
-    await dispatch(getCurrentArticleFetch(slugId));
-  };
-
-  const handleDelete = async () => {
-    await dispatch(articleDeleteFetch(slug));
-    await dispatch(setCurrentPage(1));
-    history.push('/');
-  };
-
-  const currentArticle = useSelector((state) => state.currentArticle);
+  const currentArticle = articles.find((article) => article.slug === slug);
 
   const {
+    // slug,
     title,
     body,
     createdAt,
@@ -63,6 +52,24 @@ const Article = () => {
     favorited,
     favoritesCount,
   } = currentArticle;
+
+  useEffect(() => {
+    dispatch(getArticlesListFetch(10, currentPage * 10 - 10));
+    // eslint-disable-next-line
+  }, []);
+
+  const { id, username } = useSelector((state) => state.currentUser);
+  const isLogged = !!id;
+
+  const handleLike = (slugId, isFavorited) => {
+    dispatch(setFavoriteArticle(slugId, isFavorited));
+  };
+
+  const handleDelete = async () => {
+    await dispatch(articleDeleteFetch(slug));
+    dispatch(setCurrentPage(1));
+    history.push('/');
+  };
 
   const DeleteButton = (
     <Popconfirm
@@ -108,7 +115,7 @@ const Article = () => {
     </>
   );
 
-  return (
+  const ArticleItem = (
     <Container>
       <ArticleContainer>
         <ArticleHeader>
@@ -140,6 +147,15 @@ const Article = () => {
         <Body>{body}</Body>
       </ArticleContainer>
     </Container>
+  );
+
+  const errorMessage = <ErrorMesage>{message}</ErrorMesage>;
+
+  return (
+    <>
+      {errorMessage}
+      {ArticleItem}
+    </>
   );
 };
 

@@ -70,3 +70,9 @@ export const ControlsContainer = styled.div`
   justify-content: space-between;
   margin: 10px 0;
 `;
+
+export const ErrorMesage = styled.div`
+  font-size: 22px;
+  color: red;
+  text-align: center;
+`;
