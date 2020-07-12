@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import {
   setFavoriteArticle,
-  // getCurrentArticleFetch,
+  getCurrentArticleFetch,
   setCurrentPage,
   articleDeleteFetch,
   getArticlesListFetch,
@@ -55,6 +55,7 @@ const Article = () => {
 
   useEffect(() => {
     dispatch(getArticlesListFetch(10, currentPage * 10 - 10));
+    dispatch(getCurrentArticleFetch(slug));
     // eslint-disable-next-line
   }, []);
 

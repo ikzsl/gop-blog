@@ -18,12 +18,6 @@ const validationSchema = Yup.object().shape({
   body: Yup.string(),
 });
 
-const initialValues = {
-  title: '',
-  description: '',
-  body: '',
-};
-
 const EditForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,6 +32,12 @@ const EditForm = () => {
     await dispatch(articleEditFetch(filteredValues, slug));
     await dispatch(setCurrentPage(1));
     history.push('/');
+  };
+
+  const initialValues = {
+    title,
+    description,
+    body,
   };
 
   return (
