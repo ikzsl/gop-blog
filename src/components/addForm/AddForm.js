@@ -104,7 +104,7 @@ const AddForm = () => {
                         autoFocus
                       />
                       <ButtonContainer>
-                        <RemoveRowButton name="tagList" icon={<DeleteOutlined />} />
+                        <RemoveRowButton name="tagList" icon={<DeleteOutlined />} index={{ i }} />
                       </ButtonContainer>
                     </InputContainer>
                   ),
