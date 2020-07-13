@@ -114,7 +114,7 @@ const AddForm = () => {
             <ButtonContainer>
               <AddRowButton
                 name="tagList"
-                createNewRow={(text) => text || ''}
+                createNewRow={() => ''}
                 size="large"
                 type="primary"
                 block="true"
