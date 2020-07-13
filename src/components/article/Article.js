@@ -116,6 +116,13 @@ const Article = () => {
     </>
   );
 
+  const loggedInControls = (
+    <ControlsContainer>
+      {EditButton}
+      {DeleteButton}
+    </ControlsContainer>
+  );
+
   const ArticleItem = (
     <Container>
       <ArticleContainer>
@@ -138,10 +145,7 @@ const Article = () => {
 
           <RightHeaderContainer>
             {metaInfo}
-            <ControlsContainer>
-              {author && username === author.username ? EditButton : null}
-              {author && username === author.username ? DeleteButton : null}
-            </ControlsContainer>
+            {author && username === author.username ? loggedInControls : null}
           </RightHeaderContainer>
         </ArticleHeader>
 
