@@ -7,6 +7,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 // import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
+// eslint-disable-next-line no-unused-vars
+import Data from './data/data';
+
 import reducers from './reducers/reducers';
 
 import 'antd/dist/antd.css';

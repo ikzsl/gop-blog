@@ -143,11 +143,11 @@ export const getProfileFetch = () => async (dispatch) => {
   }
   dispatch(changeLoadingStatus(true));
   try {
-    await axios.interceptors.request.use((config) => {
-      // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = `Token ${token}`;
-      return config;
-    });
+    // axios.interceptors.request.use((config) => {
+    //   // eslint-disable-next-line no-param-reassign
+    //   config.headers.Authorization = `Token ${token}`;
+    //   return config;
+    // });
     const url = routes.getProfileUrl();
     const response = await axios.get(url);
     const { data } = response;
@@ -156,9 +156,6 @@ export const getProfileFetch = () => async (dispatch) => {
     dispatch(changeFetchStatus({}));
   } catch (err) {
     dispatch(changeFetchStatus(err));
-    if (err.response && err.response.status === 401) {
-      localStorage.removeItem('token');
-    }
     dispatch(changeLoadingStatus(false));
   }
 };
