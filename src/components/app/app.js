@@ -14,7 +14,6 @@ import EditForm from '../editForm/EditForm';
 import PageNotFound from '../../pages/pageNotFound/pageNotFound';
 
 import PrivateRoute from '../privateRoute/PrivateRoute';
-import PublicRoute from '../publicRoute/PublicRoute';
 
 import { Spacer, Container, LoaderContainer } from './style';
 
@@ -33,7 +32,7 @@ const App = () => {
     // eslint-disable-next-line
   }, []);
 
-  // const isLogged = !!currentUser.id;
+  const isLoggedIn = !!currentUser.id;
 
   return (
     <HashRouter>
@@ -44,12 +43,30 @@ const App = () => {
       <Container>
         <Spacer />
         <Switch>
-          <Route exact path="/" component={Articles} />
-          <Route exact path="/articles/:slug" component={Article} />
-          <PrivateRoute exact path="/articles/:slug/edit" component={EditForm} />
-          <PrivateRoute exact path="/add" component={AddForm} />
-          <PublicRoute exact path="/login" component={LoginForm} />
-          <PublicRoute exact path="/signup" component={SignupForm} />
+          <Route path="/" component={Articles} exact />
+          <Route path="/articles/:slug" component={Article} exact />
+          <PrivateRoute
+            restricted
+            isLoggedIn={isLoggedIn}
+            path="/articles/:slug/edit"
+            component={EditForm}
+            exact
+          />
+          <PrivateRoute restricted isLoggedIn={isLoggedIn} path="/add" component={AddForm} exact />
+          <PrivateRoute
+            restricted={false}
+            isLoggedIn={isLoggedIn}
+            path="/login"
+            component={LoginForm}
+            exact
+          />
+          <PrivateRoute
+            restricted={false}
+            isLoggedIn={isLoggedIn}
+            path="/signup"
+            component={SignupForm}
+            exact
+          />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </Container>
