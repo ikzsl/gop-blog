@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({
-  component: Component, restricted, isLoggedIn, ...rest
-}) => (isLoggedIn ? (
-  <Route {...rest} render={() => (restricted ? <Component /> : <Redirect to="/" />)} />
-) : (
-  <Route {...rest} render={() => (restricted ? <Redirect to="/login" /> : <Component />)} />
-));
+  children, redirectTo, condition, ...props
+}) => (condition ? <Route {...props}>{children}</Route> : <Redirect to={redirectTo} />);
+
+PrivateRoute.defaultProps = {
+  redirectTo: '/',
+  children: {},
+};
+
 PrivateRoute.propTypes = {
-  component: PropTypes.func.isRequired,
-  restricted: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  children: PropTypes.object,
+  condition: PropTypes.bool.isRequired,
+  redirectTo: PropTypes.string,
+  path: PropTypes.string.isRequired,
 };
 
 export default PrivateRoute;

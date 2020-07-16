@@ -33,7 +33,6 @@ const App = () => {
   }, []);
 
   const isLoggedIn = !!currentUser.id;
-
   return (
     <HashRouter>
       <Header />
@@ -45,28 +44,38 @@ const App = () => {
         <Switch>
           <Route path="/" component={Articles} exact />
           <Route path="/articles/:slug" component={Article} exact />
+          <PrivateRoute condition={isLoggedIn} path="/articles/:slug/edit" exact>
+            <EditForm />
+          </PrivateRoute>
+
           <PrivateRoute
-            restricted
-            isLoggedIn={isLoggedIn}
-            path="/articles/:slug/edit"
-            component={EditForm}
-            exact
-          />
-          <PrivateRoute restricted isLoggedIn={isLoggedIn} path="/add" component={AddForm} exact />
-          <PrivateRoute
-            restricted={false}
-            isLoggedIn={isLoggedIn}
+            // component={LoginForm}
+            redirectTo="/"
+            condition={!isLoggedIn}
             path="/login"
-            component={LoginForm}
             exact
-          />
+          >
+            <LoginForm />
+          </PrivateRoute>
+
           <PrivateRoute
-            restricted={false}
-            isLoggedIn={isLoggedIn}
+            condition={!isLoggedIn}
             path="/signup"
-            component={SignupForm}
+            // component={SignupForm}
             exact
-          />
+          >
+            <SignupForm />
+          </PrivateRoute>
+
+          <PrivateRoute
+            condition={isLoggedIn}
+            path="/add"
+            redirectTo="/login"
+            // component={AddForm}
+            exact
+          >
+            <AddForm />
+          </PrivateRoute>
           <Route path="*" component={PageNotFound} />
         </Switch>
       </Container>
