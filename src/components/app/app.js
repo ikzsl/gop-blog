@@ -44,36 +44,24 @@ const App = () => {
         <Switch>
           <Route path="/" component={Articles} exact />
           <Route path="/articles/:slug" component={Article} exact />
-          <PrivateRoute condition={isLoggedIn} path="/articles/:slug/edit" exact>
+          <PrivateRoute
+            condition={isLoggedIn}
+            path="/articles/:slug/edit"
+            redirectTo="/login"
+            exact
+          >
             <EditForm />
           </PrivateRoute>
 
-          <PrivateRoute
-            // component={LoginForm}
-            redirectTo="/"
-            condition={!isLoggedIn}
-            path="/login"
-            exact
-          >
+          <PrivateRoute condition={!isLoggedIn} path="/login" redirectTo="/" exact>
             <LoginForm />
           </PrivateRoute>
 
-          <PrivateRoute
-            condition={!isLoggedIn}
-            path="/signup"
-            // component={SignupForm}
-            exact
-          >
+          <PrivateRoute condition={!isLoggedIn} path="/signup" redirectTo="/" exact>
             <SignupForm />
           </PrivateRoute>
 
-          <PrivateRoute
-            condition={isLoggedIn}
-            path="/add"
-            redirectTo="/login"
-            // component={AddForm}
-            exact
-          >
+          <PrivateRoute condition={isLoggedIn} path="/add" redirectTo="/login" exact>
             <AddForm />
           </PrivateRoute>
           <Route path="*" component={PageNotFound} />
