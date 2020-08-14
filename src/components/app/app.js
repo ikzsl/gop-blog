@@ -14,7 +14,6 @@ import EditForm from '../editForm/EditForm';
 import PageNotFound from '../../pages/pageNotFound/pageNotFound';
 
 import PrivateRoute from '../privateRoute/PrivateRoute';
-
 import { Spacer, Container, LoaderContainer } from './style';
 
 const App = () => {

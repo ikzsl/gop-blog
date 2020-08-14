@@ -1,15 +1,74 @@
 import axios from 'axios';
-import { createAction } from 'redux-actions';
+import { createSlice } from '@reduxjs/toolkit';
 import routes from '../routes';
 
-export const changeFetchStatus = createAction('CHANGE_FETCH_STATUS');
-export const changeLoadingStatus = createAction('CHANGE_LOADING_STATUS');
-export const loginUser = createAction('LOGIN_USER');
-export const logoutUser = createAction('LOGOUT_USER');
-export const loadArticlesList = createAction('LOAD_ARTICLES_LIST');
-export const loadCurrentArticle = createAction('LOAD_CURRENT_ARTICLE');
-export const favoriteArticle = createAction('FAVORITE_ARTICLE');
-export const setCurrentPage = createAction('SET_CURRENT_PAGE');
+const initialState = {
+  currentUser: {},
+  errors: {},
+  loading: false,
+  articles: [],
+  articlesCount: 1,
+  currentArticle: 1,
+  currentPage: 1,
+};
+
+const appReducer = createSlice({
+  name: 'appReducer',
+  initialState,
+  reducers: {
+    logoutUser: (state) => {
+      state.currentUser = {};
+    },
+    loginUser: (state, { payload }) => {
+      state.currentUser = payload;
+    },
+    changeFetchStatus: (state, { payload }) => {
+      state.erors = payload;
+    },
+    changeLoadingStatus: (state, { payload }) => {
+      state.loading = payload;
+    },
+    loadArticlesList: (state, { payload }) => {
+      state.articlesCount = payload.articlesCount;
+      state.articles = payload.articles;
+    },
+    favoriteArticle: (state, { payload }) => {
+      const likedArticle = state.articles.find((article) => article.slug === payload.slug);
+      const newLikedArticle = { ...likedArticle };
+      const idx = state.articles.findIndex((article) => article.slug === payload.slug);
+      newLikedArticle.favorited = !likedArticle.favorited;
+      newLikedArticle.favoritesCount = likedArticle.favorited
+        ? newLikedArticle.favoritesCount - 1
+        : newLikedArticle.favoritesCount + 1;
+      // const newState = __.differenceWith(state, [likedArticle], __.isEqual);
+      state.articles = [
+        ...state.articles.slice(0, idx),
+        newLikedArticle,
+        ...state.articles.slice(idx + 1),
+      ];
+    },
+
+    loadCurrentArticle: (state, { payload }) => {
+      state.currentArticle = payload;
+    },
+    setCurrentPage: (state, { payload }) => {
+      state.currentPage = payload;
+    },
+  },
+});
+
+const { actions, reducer } = appReducer;
+export const {
+  changeFetchStatus,
+  changeLoadingStatus,
+  loginUser,
+  logoutUser,
+  loadArticlesList,
+  loadCurrentArticle,
+  favoriteArticle,
+  setCurrentPage,
+} = actions;
+export default reducer;
 
 const userFetch = async (user, dispatch, url) => {
   const response = await axios.post(url, { user });
