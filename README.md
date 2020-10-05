@@ -1,4 +1,4 @@
-## [Гоп - блог](https://ikzsl.github.io/blog-articles/).
+## [Гоп - блог](https://ikzsl.github.io/blog-articles/)
 
 ### Реализация типичной CRUD задачи на примере статей
 
