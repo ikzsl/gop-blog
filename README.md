@@ -8,3 +8,5 @@
 - redux-thunk
 - Ant Design
 - date-fns
+- Sentry
+
