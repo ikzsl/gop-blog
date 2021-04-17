@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import axios from 'axios';
@@ -41,6 +43,16 @@ const store = configureStore({
   reducer,
   middleware,
   devTools: process.env.NODE_ENV !== 'production',
+});
+
+Sentry.init({
+  dsn: 'https://c2e9c54b53974653bc87190ede89cb60@o573579.ingest.sentry.io/5724133',
+  integrations: [new Integrations.BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
 });
 
 ReactDOM.render(
